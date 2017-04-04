@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d9d9d9"
+    android:clickable="true"
+    android:focusable="true"
+
+    tools:context="com.example.sarfraz.sarfarz.Fragments.MyProfile">
+
+    <!-- TODO: Update blank fragment layout -->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:text="@string/hello_blank_fragment"
+        android:id="@+id/imageViewMyProfile"
+        android:src="@drawable/ic_menu_gallery"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewMyProfile"
+        android:text="Adnan Ahmed"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageViewMyProfile"
+        android:layout_marginTop="10dp"
+        android:textSize="30dp"
+        ></TextView>
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="2"
+    android:layout_below="@+id/textViewMyProfile"
+    android:textSize="20dp"
+    android:textAlignment="center"
+    android:layout_marginTop="10dp"
+    android:id="@+id/textViewBirthdayMyProfile"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alhumdulillah :)"
+        android:layout_below="@+id/textViewEmailwMyProfile"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:id="@+id/textViewStatusMyProfile"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:text="2543534534"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewStatusMyProfile"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textViewContact" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adnan.Ahmed94k@gmail.com"
+        android:textSize="20dp"
+        android:id="@+id/textViewEmailwMyProfile"
+        android:layout_marginTop="12dp"
+
+        android:layout_below="@+id/textViewBirthdayMyProfile"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

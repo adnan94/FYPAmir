@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3e3e3e"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context="com.example.sarfraz.sarfarz.Fragments.GroupChat">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <ImageButton
+        android:id="@+id/imageButtonGroupSent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="5dp"
+        android:background="#00000000"
+        app:srcCompat="@drawable/ic_menu_send"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/listViewGroupChat" />
+
+    <ListView
+        android:id="@+id/listViewGroupChat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/editTextGroupSent" />
+
+    <EditText
+        android:id="@+id/editTextGroupSent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColor="#fff"
+        android:hint="Write Message Here"
+        android:inputType="textPersonName"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/imageUploadChat"
+        android:layout_toStartOf="@+id/imageUploadChat" />
+
+    <ImageButton
+        android:id="@+id/imageUploadChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        app:srcCompat="@drawable/ic_menu_gallery"
+        android:layout_toLeftOf="@+id/imageButtonGroupSent"
+        android:layout_toStartOf="@+id/imageButtonGroupSent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/listViewGroupChat" />
+</RelativeLayout>

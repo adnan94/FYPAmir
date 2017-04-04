@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "292299970764",
+    "firebase_url": "https://amirproject-fa638.firebaseio.com",
+    "project_id": "amirproject-fa638",
+    "storage_bucket": "amirproject-fa638.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292299970764:android:99474d2e33818902",
+        "android_client_info": {
+          "package_name": "com.example.sarfraz.sarfarz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292299970764-7p6cla5r3gel1oj25aa8u56qtiujffoc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCO3buNE_HoHN9hmquBDVil5IiHi4RZiBo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
