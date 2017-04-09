@@ -1,18 +1,13 @@
 package com.example.sarfraz.sarfarz.Activities;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.provider.Contacts;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -20,6 +15,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -29,7 +25,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -42,15 +37,13 @@ import com.example.sarfraz.sarfarz.Fragments.ConversationFragment;
 import com.example.sarfraz.sarfarz.Fragments.Friend_Request_Fragment;
 import com.example.sarfraz.sarfarz.Fragments.GroupFragment;
 import com.example.sarfraz.sarfarz.Fragments.MyProfile;
-import com.example.sarfraz.sarfarz.Fragments.StatusFragment;
+import com.example.sarfraz.sarfarz.Fragments.ChangePassword;
 import com.example.sarfraz.sarfarz.Fragments.UpdateInfo;
-import com.example.sarfraz.sarfarz.Notificationn;
 import com.example.sarfraz.sarfarz.R;
 import com.example.sarfraz.sarfarz.Utils;
 import com.example.sarfraz.sarfarz.user;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,8 +56,6 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -79,42 +70,39 @@ public class NavDrawerActivity extends AppCompatActivity
     String typ, mId;
     TextView textView;
     public static NavDrawerActivity context;
-    String array[] = {"Conversation", "Contacts", "Groups"};
+    String array[] = {"Conversation", "Groups", "Requests"};
+    pagerAdaptor adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_drawer);
-//        retrive();
-//        Intent i = new Intent(this, Notificationn.class);
-//        startService(i);
+        manager = getSupportFragmentManager();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         pd = new ProgressDialog(this);
-        pd.setTitle("Uploading");
-        pd.setMessage("Wait While Uploading !");
+        pd.setTitle("Processing");
+        pd.setMessage("Wait While Processing !");
         context = this;
         fire = FirebaseDatabase.getInstance().getReference();
         storegeRef = FirebaseStorage.getInstance().getReference();
         imageView = (ImageView) findViewById(R.id.imageView);
 
 
-
         if (getIntent() != null) {
             mId = getIntent().getStringExtra("id");
             typ = getIntent().getStringExtra("type");
 
-        }else{
+        } else {
         }
 
         Utils.type = typ;
+        Utils.uid = mId;
 //        getUserData();
 
         getUserData();
-        if (!mId.equals("") && !typ.equals("")) {
 
-        }
         manager = getSupportFragmentManager();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -144,8 +132,8 @@ public class NavDrawerActivity extends AppCompatActivity
                         } else if (item.getItemId() == R.id.changePassword) {
 
                             FragmentTransaction mtransaction = manager.beginTransaction();
-                            StatusFragment statusFragment = new StatusFragment();
-                            mtransaction.replace(R.id.container, statusFragment);
+                            ChangePassword changePassword = new ChangePassword();
+                            mtransaction.replace(R.id.container, changePassword);
                             mtransaction.addToBackStack(null);
                             mtransaction.commit();
 
@@ -159,8 +147,8 @@ public class NavDrawerActivity extends AppCompatActivity
                             SQLiteDatabase db = openOrCreateDatabase("StudentDB", Context.MODE_PRIVATE, null);
                             db.execSQL("CREATE TABLE IF NOT EXISTS student(rollno VARCHAR,type VARCHAR,id VARCHAR);");
                             db.execSQL("DELETE FROM student WHERE rollno='1'");
-                            startActivity(new Intent(NavDrawerActivity.this,SignInType.class));
-finish();
+                            startActivity(new Intent(NavDrawerActivity.this, SignInType.class));
+                            finish();
                         }
 
                         return true;
@@ -171,6 +159,12 @@ finish();
 
             }
         });
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+
+        tabLayout.setupWithViewPager(viewPager);
+        pagerAdaptor pagerAdapter = new pagerAdaptor(manager, array);
+        viewPager.setAdapter(pagerAdapter);
 
     }
 
@@ -183,7 +177,6 @@ finish();
         }
 
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -192,7 +185,7 @@ finish();
         }
     }
 
-//    public void retrive(){
+    //    public void retrive(){
 //        SQLiteDatabase db = openOrCreateDatabase("StudentDB", Context.MODE_PRIVATE, null);
 //        db.execSQL("CREATE TABLE IF NOT EXISTS student(rollno VARCHAR,type VARCHAR,id VARCHAR);");
 //        Cursor c = db.rawQuery("SELECT * FROM student", null);
@@ -204,7 +197,7 @@ finish();
 //        }
 //    }
     public void getUserData() {
-
+        pd.show();
         fire.child("AppData").child(typ).child(mId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -222,10 +215,11 @@ finish();
 
                 setNav(u.getName(), u.getEmail(), u.getPicurl());
                 textView.setText(Utils.name);
-                FragmentTransaction transaction = manager.beginTransaction();
-                ConversationFragment group = new ConversationFragment();
-                transaction.replace(R.id.container, group);
-                transaction.commit();
+//                FragmentTransaction transaction = manager.beginTransaction();
+//                ConversationFragment group = new ConversationFragment();
+//                transaction.replace(R.id.container, group);
+//                transaction.commit();
+                pd.dismiss();
             }
 
             @Override
@@ -297,7 +291,7 @@ finish();
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         Toast.makeText(NavDrawerActivity.this, "Sucessfull",
                                 Toast.LENGTH_SHORT).show();
-                        Utils.picurl=taskSnapshot.getDownloadUrl().toString();
+                        Utils.picurl = taskSnapshot.getDownloadUrl().toString();
                     }
                 });
 
@@ -369,47 +363,19 @@ finish();
             transaction.addToBackStack(null);
             transaction.commit();
 
-        }
-// else if (id == R.id.nav_group) {
-//            FragmentTransaction transaction = manager.beginTransaction();
-//            GroupFragment group = new GroupFragment();
-//            transaction.replace(R.id.container, group);
-//            transaction.addToBackStack(null);
-//            transaction.commit();
-//        } else if (id == R.id.nav_update_info) {
-//            FragmentTransaction mtransaction = manager.beginTransaction();
-//            UpdateInfo updateInfo = new UpdateInfo();
-//            mtransaction.replace(R.id.container, updateInfo);
-//            mtransaction.addToBackStack(null);
-//            mtransaction.commit();
-//        } else if (id == R.id.nav_status) {
-//            FragmentTransaction mtransaction = manager.beginTransaction();
-//            StatusFragment statusFragment = new StatusFragment();
-//            mtransaction.replace(R.id.container, statusFragment);
-//            mtransaction.addToBackStack(null);
-//            mtransaction.commit();
-//        }
-//        else if (id == R.id.logout) {
-//            FirebaseAuth.getInstance().signOut();
-//            Intent i = new Intent(NavDrawerActivity.this, SignInActivity.class);
-//            startActivity(i);
-//            finish();
-//        }
-// else if (id == R.id.nav_allGroups) {
-//            FragmentTransaction mtransaction = manager.beginTransaction();
-//            AllGroups allGroups = new AllGroups();
-//            mtransaction.replace(R.id.container, allGroups);
-//            mtransaction.addToBackStack(null);
-//            mtransaction.commit();
-//
-//        }
-        else if (id == R.id.nav_requests) {
-
+        } else if (id == R.id.nav_group) {
+            FragmentTransaction transaction = manager.beginTransaction();
+            GroupFragment group = new GroupFragment();
+            transaction.replace(R.id.container, group);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        } else if (id == R.id.nav_allGroups) {
             FragmentTransaction mtransaction = manager.beginTransaction();
-            Friend_Request_Fragment requestFragment = new Friend_Request_Fragment();
-            mtransaction.replace(R.id.container, requestFragment);
+            AllGroups allGroups = new AllGroups();
+            mtransaction.replace(R.id.container, allGroups);
             mtransaction.addToBackStack(null);
             mtransaction.commit();
+
         } else if (id == R.id.nav_users) {
             FragmentTransaction mtransaction = manager.beginTransaction();
             AllUser userAll = new AllUser();

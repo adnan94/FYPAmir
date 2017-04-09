@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -35,13 +37,10 @@ public class SignInActivity extends AppCompatActivity {
     EditText password;
     Button submit;
     TextView signUp, dummy;
-    private FirebaseAuth mAuth;
     ProgressDialog pd;
     DatabaseReference ref;
     String type;
     SQLiteDatabase db;
-    //    EmailPasswordActivity.java
-    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +48,9 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         db = openOrCreateDatabase("StudentDB", Context.MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS student(rollno VARCHAR,type VARCHAR,id VARCHAR);");
-retrive();
+        retrive();
 
 
-        mAuth = FirebaseAuth.getInstance();
         ref = FirebaseDatabase.getInstance().getReference().child("AppData");
         pd = new ProgressDialog(this);
         pd.setMessage("Signing In..");
@@ -68,7 +66,7 @@ retrive();
         signUp = (TextView) findViewById(R.id.notAccount);
         dummy = (TextView) findViewById(R.id.textView2);
         type = getIntent().getStringExtra("type");
-        dummy.setText("Welcome To "+type);
+        dummy.setText("Welcome To " + type);
 
         if (type.equals("Teacher") || type.equals("Employee")) {
             email.setHint("Enter A Cnic");
@@ -78,23 +76,6 @@ retrive();
 //        dummy = (TextView) findViewById(R.id.dummy);
 
         submit = (Button) findViewById(R.id.signInButton);
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Intent i = new Intent(SignInActivity.this, NavDrawerActivity.class);
-                    startActivity(i);
-                    finish();
-                } else {
-                    // User is signed out
-
-                }
-                // ...
-            }
-        };
 
 
         signUp.setOnClickListener(new View.OnClickListener() {
@@ -106,148 +87,168 @@ retrive();
 
             }
         });
-//
-//        dummy.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(SignInActivity.this, Administrator.class);
-//                startActivity(i);
-//            }
-//        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                    if (CheckConnectivity(getApplicationContext())){
+                        if (type.equals("Students")) {
+                            ref.child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    pd.show();
+                                    if (!email.getText().toString().equals("") && dataSnapshot.hasChild(email.getText().toString())) {
+                                        String pass = dataSnapshot.child(email.getText().toString()).child("pass").getValue().toString();
+                                        if (pass.equals(password.getText().toString())) {
+                                            Toast.makeText(SignInActivity.this, "Sucessfull", Toast.LENGTH_SHORT).show();
+                                            SignInType.acti.finish();
+                                            pd.dismiss();
+                                            insert();
+                                            Intent i = new Intent(SignInActivity.this, NavDrawerActivity.class);
+                                            i.putExtra("type", "Students");
+                                            i.putExtra("id", email.getText().toString());
 
-                if (type.equals("Students")) {
-                    ref.child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (!email.getText().toString().equals("") && dataSnapshot.hasChild(email.getText().toString())) {
-                                String pass = dataSnapshot.child(email.getText().toString()).child("pass").getValue().toString();
-                                if (pass.equals(password.getText().toString())) {
-                                    Toast.makeText(SignInActivity.this, "Sucessfull", Toast.LENGTH_SHORT).show();
-                                    insert();
-                                    Intent i = new Intent(SignInActivity.this, NavDrawerActivity.class);
-                                    i.putExtra("type", "Students");
-                                    i.putExtra("id", email.getText().toString());
+                                            startActivity(i);
+                                            finish();
 
-                                    startActivity(i);
-                                    finish();
+                                        } else {
+                                            Toast.makeText(SignInActivity.this, "Invalid Email Or Password", Toast.LENGTH_SHORT).show();
+                                            pd.dismiss();
+                                        }
+                                    } else {
+                                        Toast.makeText(SignInActivity.this, "Invalid User", Toast.LENGTH_SHORT).show();
+                                        pd.dismiss();
+                                    }
+                                }
 
-                                } else {
-                                    Toast.makeText(SignInActivity.this, "Invalid Email Or Password", Toast.LENGTH_SHORT).show();
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
                                 }
-                            } else {
-                                Toast.makeText(SignInActivity.this, "Invalid User", Toast.LENGTH_SHORT).show();
 
-                            }
-                        }
+                            });
+                        } else if (type.equals("Teacher")) {
+                            ref.child("Teacher").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (!email.getText().toString().equals("") && dataSnapshot.hasChild(email.getText().toString())) {
+                                        String pass = dataSnapshot.child(email.getText().toString()).child("pass").getValue().toString();
+                                        if (pass.equals(password.getText().toString())) {
+                                            Toast.makeText(SignInActivity.this, "Sucessfull", Toast.LENGTH_SHORT).show();
+                                            SignInType.acti.finish();
 
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-
-                    });
-                } else if (type.equals("Teacher")) {
-                    ref.child("Teacher").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (!email.getText().toString().equals("") && dataSnapshot.hasChild(email.getText().toString())) {
-                                String pass = dataSnapshot.child(email.getText().toString()).child("pass").getValue().toString();
-                                if (pass.equals(password.getText().toString())) {
-                                    Toast.makeText(SignInActivity.this, "Sucessfull", Toast.LENGTH_SHORT).show();
-                                    insert();
+                                            pd.dismiss();
+                                            insert();
 
 
-                                    Intent i = new Intent(SignInActivity.this, NavDrawerActivity.class);
-                                    i.putExtra("type", "Teacher");
+                                            Intent i = new Intent(SignInActivity.this, NavDrawerActivity.class);
+                                            i.putExtra("type", "Teacher");
 
-                                    i.putExtra("id", email.getText().toString());
+                                            i.putExtra("id", email.getText().toString());
 
-                                    startActivity(i);
+                                            startActivity(i);
 
-                                    finish();
+                                            finish();
 
-                                } else {
-                                    Toast.makeText(SignInActivity.this, "Invalid Email Or Password", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(SignInActivity.this, "Invalid Email Or Password", Toast.LENGTH_SHORT).show();
+                                            pd.dismiss();
+
+                                        }
+                                    } else {
+                                        Toast.makeText(SignInActivity.this, "Invalid User", Toast.LENGTH_SHORT).show();
+                                        pd.dismiss();
+
+                                    }
+                                }
+
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
                                 }
-                            } else {
-                                Toast.makeText(SignInActivity.this, "Invalid User", Toast.LENGTH_SHORT).show();
 
-                            }
-                        }
+                            });
+                        } else if (type.equals("Employee")) {
+                            ref.child("Employee").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (!email.getText().toString().equals("") && dataSnapshot.hasChild(email.getText().toString())) {
+                                        String pass = dataSnapshot.child(email.getText().toString()).child("pass").getValue().toString();
+                                        if (pass.equals(password.getText().toString())) {
+                                            Toast.makeText(SignInActivity.this, "Sucessfull", Toast.LENGTH_SHORT).show();
 
+                                            pd.dismiss();
+                                            insert();
+                                            SignInType.acti.finish();
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-
-                    });
-                } else if (type.equals("Employee")) {
-                    ref.child("Employee").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (!email.getText().toString().equals("") && dataSnapshot.hasChild(email.getText().toString())) {
-                                String pass = dataSnapshot.child(email.getText().toString()).child("pass").getValue().toString();
-                                if (pass.equals(password.getText().toString())) {
-                                    Toast.makeText(SignInActivity.this, "Sucessfull", Toast.LENGTH_SHORT).show();
-                                    insert();
-                                    Intent i = new Intent(SignInActivity.this, NavDrawerActivity.class);
-                                    i.putExtra("type", "Employee");
+                                            Intent i = new Intent(SignInActivity.this, NavDrawerActivity.class);
+                                            i.putExtra("type", "Employee");
 
 
-                                    i.putExtra("id", email.getText().toString());
+                                            i.putExtra("id", email.getText().toString());
 
-                                    startActivity(i);
-                                    finish();
+                                            startActivity(i);
+                                            finish();
 
-                                } else {
-                                    Toast.makeText(SignInActivity.this, "Invalid Email Or Password", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(SignInActivity.this, "Invalid Email Or Password", Toast.LENGTH_SHORT).show();
+                                            pd.dismiss();
+
+                                        }
+                                    } else {
+                                        Toast.makeText(SignInActivity.this, "Invalid User", Toast.LENGTH_SHORT).show();
+                                        pd.dismiss();
+
+                                    }
+                                }
+
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
                                 }
-                            } else {
-                                Toast.makeText(SignInActivity.this, "Invalid User", Toast.LENGTH_SHORT).show();
 
-                            }
+                            });
                         }
 
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
 
-                        }
+                    }else{
+                        Toast.makeText(getApplicationContext(), "No Network Available",Toast.LENGTH_SHORT).show();
 
-                    });
-                }
+                    }
+
 
 
             }
         });
     }
-public void insert(){
-    db.execSQL("INSERT INTO student VALUES('1','"+type+"','" +email.getText().toString()+ "');");
-}
+    public boolean CheckConnectivity(final Context c) {
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (mConnectivityManager.getActiveNetworkInfo() != null
+                && mConnectivityManager.getActiveNetworkInfo().isAvailable()
+                && mConnectivityManager.getActiveNetworkInfo().isConnected()) {
+            return true;
+        } else {
+            return false; // make it false
+        }
+    }
+    public void insert() {
+        db.execSQL("INSERT INTO student VALUES('1','" + type + "','" + email.getText().toString() + "');");
+    }
 
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
     }
 
-    public void retrive(){
-//     SQLiteDatabase   db = openOrCreateDatabase("StudentDB", Context.MODE_PRIVATE, null);
-//        db.execSQL("CREATE TABLE IF NOT EXISTS student(rollno VARCHAR,type VARCHAR,id VARCHAR);");
-//        db.execSQL("DELETE FROM student WHERE rollno='1'");
+    public void retrive() {
         Cursor c = db.rawQuery("SELECT * FROM student", null);
         while (c.moveToNext()) {
-           Toast.makeText(getApplicationContext(),c.getString(1)+"sign In",Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(),c.getString(2)+"sign In",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), c.getString(1) + "sign In", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), c.getString(2) + "sign In", Toast.LENGTH_SHORT).show();
 
 
         }
@@ -256,9 +257,7 @@ public void insert(){
     @Override
     public void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
+
     }
 
 

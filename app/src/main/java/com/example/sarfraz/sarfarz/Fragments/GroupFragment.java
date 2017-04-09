@@ -23,9 +23,11 @@ import com.example.sarfraz.sarfarz.Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -40,12 +42,12 @@ import java.util.Map;
  */
 public class GroupFragment extends Fragment {
 
-Button createGroup;
+    Button createGroup;
     EditText name;
-String url="";
+    String url = "";
     DatabaseReference fire;
-    StorageReference storegeRef,imgRef;
-   Button upload;
+    StorageReference storegeRef, imgRef;
+    Button upload;
     ProgressDialog pd;
 
     public GroupFragment() {
@@ -57,13 +59,13 @@ String url="";
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v= inflater.inflate(R.layout.fragment_blank, container, false);
+        View v = inflater.inflate(R.layout.fragment_blank, container, false);
 
-        fire= FirebaseDatabase.getInstance().getReference();
-        createGroup=(Button)v.findViewById(R.id.buttonCreateGroupScreen);
-        name=(EditText)v.findViewById(R.id.editTextGroupScreen);
-        upload=(Button)v.findViewById(R.id.buttonUploadGroupScreen);
-        pd=new ProgressDialog(getActivity());
+        fire = FirebaseDatabase.getInstance().getReference();
+        createGroup = (Button) v.findViewById(R.id.buttonCreateGroupScreen);
+        name = (EditText) v.findViewById(R.id.editTextGroupScreen);
+        upload = (Button) v.findViewById(R.id.buttonUploadGroupScreen);
+        pd = new ProgressDialog(getActivity());
         pd.setTitle("Uploading ..");
         pd.setMessage("Wait while uploading..");
         storegeRef = FirebaseStorage.getInstance().getReference();
@@ -71,7 +73,7 @@ String url="";
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                url="";
+                url = "";
                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, 0);
             }
@@ -83,41 +85,52 @@ String url="";
             public void onClick(View v) {
 
 
-               if(name.getText().toString().equals("")){
-                   Toast.makeText(getActivity(),"Enter Group Name",Toast.LENGTH_SHORT).show();
-               }else{
-                   Map<String,String> map;
-                 if(url.equals("")){
-                     map=new HashMap<String, String>();
-                     map.put("name",name.getText().toString());
-                     map.put("picurl", "N/A");
-                     map.put("admin",Utils.name);
-                 }else{
-                     map=new HashMap<String, String>();
-                     map.put("name",name.getText().toString());
-                     map.put("picurl", url);
-                     map.put("admin",Utils.name);
-                 }
+                if (name.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "Enter Group Name", Toast.LENGTH_SHORT).show();
+                } else {
+                    Map<String, String> map;
+                    if (url.equals("")) {
+                        map = new HashMap<String, String>();
+                        map.put("name", name.getText().toString());
+                        map.put("picurl", "N/A");
+                        map.put("admin", Utils.name);
+                    } else {
+                        map = new HashMap<String, String>();
+                        map.put("name", name.getText().toString());
+                        map.put("picurl", url);
+                        map.put("admin", Utils.name);
+                    }
 
 
 
 
+                    fire.child("AppData").child("Groups").child("GroupList").child(name.getText().toString()).setValue(map);
+                    if(Utils.type.equals("Employee") || Utils.type.equals("Teacher")){
+                        fire.child("AppData").child("Groups").child("MyGroup").child(Utils.cnic).child(name.getText().toString()).setValue(map, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT).show();
+                                name.setText("");
+                            }
+                        });
 
-                   fire.child("AppData").child("Groups").child("GroupList").child(name.getText().toString()).setValue(map);
-                   fire.child("AppData").child("Groups").child("MyGroup").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(name.getText().toString()).setValue(map, new DatabaseReference.CompletionListener() {
-                       @Override
-                       public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                           Toast.makeText(getActivity(),"Updated",Toast.LENGTH_SHORT).show();
-                           name.setText("");
-                       }
-                   });
+                    }else{
+                        fire.child("AppData").child("Groups").child("MyGroup").child(Utils.uid).child(name.getText().toString()).setValue(map, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT).show();
+                                name.setText("");
+                            }
+                        });
 
-               }
+                    }
+
+
+
+                }
 
             }
         });
-
-
 
 
         return v;
@@ -136,12 +149,13 @@ String url="";
         }
         return result;
     }
+
     public void getImage(String path, final Intent data) {
         Uri file = Uri.fromFile(new File(path));
         Log.d("TAG", file.toString());
 
 //        StorageReference riversRef = storegeRef.child("image/");
-        File f=new File(path);
+        File f = new File(path);
 
         imgRef = storegeRef.child("imageOnly").child(f.getName());
 
@@ -150,9 +164,8 @@ String url="";
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
-                url=taskSnapshot.getDownloadUrl().toString();
+                url = taskSnapshot.getDownloadUrl().toString();
                 pd.dismiss();
-
 
 
             }
@@ -161,7 +174,7 @@ String url="";
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
 
-                Toast.makeText(getActivity(), "Uploading Failed"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Uploading Failed" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("TAG", e.getMessage().toString());
             }
         });
@@ -169,15 +182,13 @@ String url="";
     }
 
 
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 0 && data != null ){
+        if (requestCode == 0 && data != null) {
             pd.show();
             String path = getRealPathFromURI(data.getData());
-            getImage(path,data);
+            getImage(path, data);
         }
     }
 }

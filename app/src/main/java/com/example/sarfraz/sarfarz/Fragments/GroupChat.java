@@ -35,7 +35,7 @@ public class GroupChat extends Fragment {
     ArrayList<chat> list;
     chatAdaptor adaptor;
     TextView textViewNav;
-
+    String id;
 
     public GroupChat() {
         // Required empty public constructor
@@ -65,15 +65,20 @@ public class GroupChat extends Fragment {
         listView.setStackFromBottom(true);
         listView.setAdapter(adaptor);
 //
-//        imageButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                fire.child("AppData").child("Conversations").child("GroupChat").child(Utils.groupName).push().setValue(new chat(Utils.name, Utils.picurl, Utils.uid, "message", message.getText().toString()));
+        if (Utils.type.equals("Employee") || Utils.type.equals("Teacher")) {
+            id = Utils.cnic;
+        } else {
+            id = Utils.uid;
+        }
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fire.child("AppData").child("Conversations").child("GroupChat").child(Utils.groupName).push().setValue(new chat(Utils.name, Utils.picurl, id, "message", message.getText().toString(),Utils.cnic));
 //                fire.child("AppData").child("Notificationn").child("GroupChat").child(Utils.uid).push().setValue(new chat(Utils.name, Utils.picurl, Utils.uid, "message", message.getText().toString()));
-//
-//                message.setText("");
-//            }
-//        });
+
+                message.setText("");
+            }
+        });
 
 
         getConversation();

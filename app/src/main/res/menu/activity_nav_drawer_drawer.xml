@@ -6,24 +6,15 @@
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Profile" />
-        <!--<item-->
-            <!--android:id="@+id/nav_group"-->
-            <!--android:icon="@drawable/ic_menu_gallery"-->
-            <!--android:title="Make New Group" />-->
-
-        <!--<item-->
-            <!--android:id="@+id/nav_status"-->
-            <!--android:icon="@drawable/ic_menu_manage"-->
-            <!--android:title="Update Status" />-->
-        <!--<item-->
-            <!--android:id="@+id/nav_allGroups"-->
-            <!--android:icon="@drawable/ic_menu_manage"-->
-            <!--android:title="All Groups" />-->
         <item
-            android:id="@+id/nav_requests"
+            android:id="@+id/nav_group"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Make New Group" />
+
+        <item
+            android:id="@+id/nav_allGroups"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Friend Requests" />
-        android:title="All Groups" />
+            android:title="All Groups" />
         <item
             android:id="@+id/nav_users"
             android:icon="@drawable/ic_menu_manage"

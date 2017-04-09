@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.sarfraz.sarfarz.Fragments.ContactsFragment;
 import com.example.sarfraz.sarfarz.Fragments.ConversationFragment;
+import com.example.sarfraz.sarfarz.Fragments.Friend_Request_Fragment;
 import com.example.sarfraz.sarfarz.Fragments.GroupsListFragment;
 
 /**
@@ -29,10 +29,10 @@ public class pagerAdaptor extends FragmentStatePagerAdapter {
             fragment=new ConversationFragment();
         }
         if(position==1){
-            fragment=new ContactsFragment();
+            fragment=new GroupsListFragment();
         }
         if(position==2){
-            fragment=new GroupsListFragment();
+            fragment=new Friend_Request_Fragment();
         }
 
         return fragment;

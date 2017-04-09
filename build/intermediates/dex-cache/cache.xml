@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-24.2.1_209100da7881be0d11201bc0d355b2d586b70da1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="6addaba208e21c6da776d0ca75b6b23a6ccd5499">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-tasks-10.0.1_da91d4e29dab46bfee03a75a8d89f84a4fa86a65.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-24.2.1_d167f5bb7057490070054220e3d78fe350617ee4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_fd1ad2ec9dfe2b09fe3c32547f21ca435dace656.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="486371f97baad8e607f332f20fee1d3dd00a731a">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-iid-10.0.1_059c93b40a6e3ed0d30cc1eec3880c4170a5afeb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\adnan\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\picasso-2.5.2_b9e5e48866faa43448b507ba89a1c19aff2b8d9f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-24.2.1_3580a15a8b9939e7216c3ab00938d2a15c637a64.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\de.hdodenhof\circleimageview\2.1.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a2af9c72ccaa4c5c049b500ca6ea664a4ce1f7d4">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\de.hdodenhof-circleimageview-2.1.0_a1e9e80b59cd88a9afd9de89b8da48235d2d91b8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8f128aeeb7e31271b28a7adb9dac1f3a6ed9f5e7">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-database-10.0.1_408703bb1c598d5a635c65263d65da9c16c52708.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="dd39827d2067497e60e21da48a7926000b6d4b0c">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-storage-10.0.1_1098715a7657c71a6968b81aaa431eba9def1f35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="eb0d830e3eabb9deb9ec44869cf7ac7ea1ad794c">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-common-10.0.1_1bef05c00a9ef8da6db1642bc1ad584786104f03.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-24.2.1_0f20becdaa145d16e2b89b9a11607110c61f84e2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-24.2.1_0e405ea7e3b08d69de027253c083f00591533ad5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="9cca2818594cc5348806d6662133491e7ea0fa8d">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-auth-10.0.1_519b0d5ae082ad511945a0a140201037d2c476a2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="433f4d6aa5f21f19552afe0e6c5eff0fedba73ad">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-analytics-10.0.1_7d563f5cbb6e25d40d73721ab71d7eda3d16d0fb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_49aaf94c69f860708ae7775ad599e5fb8aa5ecbc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-24.2.1_32e804684cf377bb4d06c8a45367d97b350f23b7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\design\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.android.support-design-24.2.1_5a4631925225626994f76e96d221ca11a613edbf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="6116e0e7069de7fc259aac8e08b84f32c2038231">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-analytics-impl-10.0.1_2d3fbbe0ab8b3e55428052604757e78ce9a3f339.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.2.1_ff3ec119da420ab886913031b5880ad948969a63.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_950a12771c0f009a87f222fbd41b086100f2fcb1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8010ae6ed32828a145b25ec97bc07b7a83c6318f">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-database-connection-10.0.1_b52775b345b976cde47aefa1b52d99c27a43d3c6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-24.2.1_9a814e208c10e09479ac3c3edcc02a4107171cc6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="25438f55fc6d906a0e72f30b21487541430ede43">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-10.0.1_c32c2cd4f0bd633be7edaf8633a3657fc553790f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-24.2.1_66e9d352a4ea3406e764f07477338b17de006592.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AppData\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\support-annotations-24.2.1_603ed9e0e778d6382d9dc9e6b70dcd4944a15fcf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="09cf6aa1390f95157e8295d02be7868f568825fc">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-storage-common-10.0.1_e8072e78a760ac72e1e6b5caa25fd4c183e6d2c7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="756f6297eef79784f5e356dcd4f39865028b2bd0">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-basement-10.0.1_0fc03717ebf86f407263fdfc2a07ebc28950d703.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-24.2.1_2456f4e7e4ea16db51bc5ba23dda73d259898db4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_87d2d822dba1b755e474d747d7bb3f70968477b8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\new1\ChatOn.git\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="H:\new1\ChatOn.git\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_b63866a6eba98655cee7193cefc5634a14f6f31a.jar" />
+    </item>
+
+</items>

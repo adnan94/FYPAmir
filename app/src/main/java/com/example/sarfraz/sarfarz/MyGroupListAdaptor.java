@@ -52,7 +52,7 @@ public class MyGroupListAdaptor extends BaseAdapter {
         Picasso.with(context).load(list.get(position).getPicurl()).placeholder(R.drawable.user).into(iv);
 
         name.setText(list.get(position).getName());
-        admin.setText(list.get(position).getAdmin());
+        admin.setText("Admin :"+list.get(position).getAdmin());
         return v;
     }
 }

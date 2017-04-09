@@ -26,7 +26,7 @@
     android:hint="Write the name of group "
     android:layout_below="@id/textViewGroupScreen"
     android:layout_marginTop="20dp"
-    android:background="#d9d9d9"
+    android:background="#fff"
     android:id="@+id/editTextGroupScreen"
     />
 

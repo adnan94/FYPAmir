@@ -38,7 +38,9 @@ public class AllGroups extends Fragment {
     ArrayList<Group> list;
     MyGroupListAdaptor adaptor;
     DatabaseReference firebase;
-TextView textView;
+    TextView textView;
+    String idd;
+
     public AllGroups() {
         // Required empty public constructor
     }
@@ -48,21 +50,20 @@ TextView textView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v=inflater.inflate(R.layout.fragment_all_groups, container, false);
-        textView=(TextView)v.findViewById(R.id.placeHolderAllGroups);
-        firebase= FirebaseDatabase.getInstance().getReference();
-        listView=(ListView)v.findViewById(R.id.allGroups);
-        list=new ArrayList<>();
-        adaptor=new MyGroupListAdaptor(list,getActivity());
-listView.setAdapter(adaptor);
+        View v = inflater.inflate(R.layout.fragment_all_groups, container, false);
+        textView = (TextView) v.findViewById(R.id.placeHolderAllGroups);
+        firebase = FirebaseDatabase.getInstance().getReference();
+        listView = (ListView) v.findViewById(R.id.allGroups);
+        list = new ArrayList<>();
+        adaptor = new MyGroupListAdaptor(list, getActivity());
+        listView.setAdapter(adaptor);
 
         firebase.child("AppData").child("Groups").child("GroupList").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot d:dataSnapshot.getChildren())
-                {
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
                     textView.setVisibility(View.GONE);
-                    Group group=d.getValue(Group.class);
+                    Group group = d.getValue(Group.class);
                     list.add(group);
                     adaptor.notifyDataSetChanged();
 
@@ -87,13 +88,17 @@ listView.setAdapter(adaptor);
                 alert.setPositiveButton("Join Group", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        if (Utils.type.equals("Students")) {
+                            idd = Utils.uid;
+                        } else {
+                            idd = Utils.cnic;
+                        }
                         Map<String, String> map = new HashMap<String, String>();
                         map.put("name", list.get(position).getName());
                         map.put("picurl", "N/A");
                         map.put("admin", list.get(position).getAdmin());
 
-                        firebase.child("AppData").child("Groups").child("MyGroup").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(list.get(position).getName()).setValue(map);
+                        firebase.child("AppData").child("Groups").child("MyGroup").child(idd).child(list.get(position).getName()).setValue(map);
 
                     }
                 });
@@ -110,9 +115,8 @@ listView.setAdapter(adaptor);
                 alert.show();
 
 
-
-
-            }});
+            }
+        });
 
         return v;
     }

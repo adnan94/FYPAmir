@@ -1,6 +1,9 @@
 package com.example.sarfraz.sarfarz.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -90,175 +93,177 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(type.equals("Teacher")){
+                    if (CheckConnectivity(getApplicationContext())){
+                        if(type.equals("Teacher")){
 
-                    fire.child("AppData").child("TeacherRecords").addListenerForSingleValueEvent(new ValueEventListener() {
+                            fire.child("AppData").child("TeacherRecords").addListenerForSingleValueEvent(new ValueEventListener() {
 
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
 //                        Log.d("TAGE", dataSnapshot.getValue().toString());
-                            if (!cnic.getText().toString().equals("") && dataSnapshot.hasChild(cnic.getText().toString())) {
-                                Toast.makeText(SignUpActivity.this, "Valid", Toast.LENGTH_SHORT).show();
-                                fire.child("AppData").child("Teacher").addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.hasChild(cnic.getText().toString())) {
-                                            Toast.makeText(SignUpActivity.this, "This Teacher Id Already Signed Up", Toast.LENGTH_SHORT).show();
-                                            fname.setText("");
-                                            lname.setText("");
-                                            password.setText("");
-                                            email.setText("");
-                                            id.setText("");
-                                            batch.setText("");
-                                            cnic.setText("");
-                                            depart.setText("");
-                                        } else {
-                                            createAccount();
-                                        }
-                                    }
+                                    if (!cnic.getText().toString().equals("") && dataSnapshot.hasChild(cnic.getText().toString())) {
+                                        Toast.makeText(SignUpActivity.this, "Valid", Toast.LENGTH_SHORT).show();
+                                        fire.child("AppData").child("Teacher").addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                if (dataSnapshot.hasChild(cnic.getText().toString())) {
+                                                    Toast.makeText(SignUpActivity.this, "This Teacher Id Already Signed Up", Toast.LENGTH_SHORT).show();
+                                                    fname.setText("");
+                                                    lname.setText("");
+                                                    password.setText("");
+                                                    email.setText("");
+                                                    id.setText("");
+                                                    batch.setText("");
+                                                    cnic.setText("");
+                                                    depart.setText("");
+                                                } else {
+
+                                                    createAccount();
+                                                }
+                                            }
 
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
 
-                                    }
-                                });
-                            } else {
-                                Toast.makeText(SignUpActivity.this, "Not In University Records", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    } else {
+                                        Toast.makeText(SignUpActivity.this, "Not In University Records", Toast.LENGTH_SHORT).show();
 //
-                            }
+                                    }
 
 
-                        }
+                                }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
-
-
-
-                }else if(type.equals("Employee")){
+                                }
+                            });
 
 
 
+                        }else if(type.equals("Employee")){
 
 
 
-                    fire.child("AppData").child("EmployeeRecords").addListenerForSingleValueEvent(new ValueEventListener() {
 
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                            fire.child("AppData").child("EmployeeRecords").addListenerForSingleValueEvent(new ValueEventListener() {
+
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
 //                        Log.d("TAGE", dataSnapshot.getValue().toString());
-                            if (!cnic.getText().toString().equals("") && dataSnapshot.hasChild(cnic.getText().toString())) {
-                                Toast.makeText(SignUpActivity.this, "Valid", Toast.LENGTH_SHORT).show();
-                                fire.child("AppData").child("Employee").addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.hasChild(cnic.getText().toString())) {
-                                            Toast.makeText(SignUpActivity.this, "This Employee Id Already Signed Up", Toast.LENGTH_SHORT).show();
-                                            fname.setText("");
-                                            lname.setText("");
-                                            password.setText("");
-                                            email.setText("");
-                                            id.setText("");
-                                            batch.setText("");
-                                            cnic.setText("");
-                                            depart.setText("");
-                                        } else {
-                                            createAccount();
-                                        }
-                                    }
+                                    if (!cnic.getText().toString().equals("") && dataSnapshot.hasChild(cnic.getText().toString())) {
+                                        Toast.makeText(SignUpActivity.this, "Valid", Toast.LENGTH_SHORT).show();
+                                        fire.child("AppData").child("Employee").addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                if (dataSnapshot.hasChild(cnic.getText().toString())) {
+                                                    Toast.makeText(SignUpActivity.this, "This Employee Id Already Signed Up", Toast.LENGTH_SHORT).show();
+                                                    fname.setText("");
+                                                    lname.setText("");
+                                                    password.setText("");
+                                                    email.setText("");
+                                                    id.setText("");
+                                                    batch.setText("");
+                                                    cnic.setText("");
+                                                    depart.setText("");
+                                                } else {
+                                                    createAccount();
+                                                }
+                                            }
 
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
 
-                                    }
-                                });
-                            } else {
-                                Toast.makeText(SignUpActivity.this, "Not In University Records", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    } else {
+                                        Toast.makeText(SignUpActivity.this, "Not In University Records", Toast.LENGTH_SHORT).show();
 //
-                                fname.setText("");
-                                lname.setText("");
-                                password.setText("");
-                                email.setText("");
-                                id.setText("");
-                                batch.setText("");
-                                cnic.setText("");
-                                depart.setText("");
-                            }
+                                        fname.setText("");
+                                        lname.setText("");
+                                        password.setText("");
+                                        email.setText("");
+                                        id.setText("");
+                                        batch.setText("");
+                                        cnic.setText("");
+                                        depart.setText("");
+                                    }
 
 
-                        }
+                                }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
-
-
-
+                                }
+                            });
 
 
 
 
-                }else if(type.equals("Students")){
 
-                    fire.child("AppData").child("StudentRecords").addListenerForSingleValueEvent(new ValueEventListener() {
 
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        }else if(type.equals("Students")){
+
+                            fire.child("AppData").child("StudentRecords").addListenerForSingleValueEvent(new ValueEventListener() {
+
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
 //                        Log.d("TAGE", dataSnapshot.getValue().toString());
-                            if (!id.getText().toString().equals("") && dataSnapshot.hasChild(id.getText().toString())) {
-                                Toast.makeText(SignUpActivity.this, "Valid", Toast.LENGTH_SHORT).show();
-                                fire.child("AppData").child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.hasChild(id.getText().toString())) {
-                                            Toast.makeText(SignUpActivity.this, "This Student Id Already Signed Up", Toast.LENGTH_SHORT).show();
-                                            fname.setText("");
-                                            lname.setText("");
-                                            password.setText("");
-                                            email.setText("");
-                                            id.setText("");
-                                            batch.setText("");
-                                            cnic.setText("");
-                                            depart.setText("");
-                                        } else {
-                                            createAccount();
-                                        }
-                                    }
+                                    if (!id.getText().toString().equals("") && dataSnapshot.hasChild(id.getText().toString())) {
+                                        Toast.makeText(SignUpActivity.this, "Valid", Toast.LENGTH_SHORT).show();
+                                        fire.child("AppData").child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                if (dataSnapshot.hasChild(id.getText().toString())) {
+                                                    Toast.makeText(SignUpActivity.this, "This Student Id Already Signed Up", Toast.LENGTH_SHORT).show();
+                                                    fname.setText("");
+                                                    lname.setText("");
+                                                    password.setText("");
+                                                    email.setText("");
+                                                    id.setText("");
+                                                    batch.setText("");
+                                                    cnic.setText("");
+                                                    depart.setText("");
+                                                } else {
+                                                    createAccount();
+                                                }
+                                            }
 
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
 
-                                    }
-                                });
-                            } else {
-                                Toast.makeText(SignUpActivity.this, "Not In University Records", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    } else {
+                                        Toast.makeText(SignUpActivity.this, "Not In University Records", Toast.LENGTH_SHORT).show();
 // fname.setText("");
-                                lname.setText("");
-                                password.setText("");
-                                email.setText("");
-                                id.setText("");
-                                batch.setText("");
-                                cnic.setText("");
-                                depart.setText("");
-                            }
+                                        lname.setText("");
+                                        password.setText("");
+                                        email.setText("");
+                                        id.setText("");
+                                        batch.setText("");
+                                        cnic.setText("");
+                                        depart.setText("");
+                                    }
 
 
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
                         }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
 
 //                if (fname.getText().toString().equals("") || fname.getText().toString().equals("") || password.getText().toString().equals("") || email.getText().toString().equals("")) {
 //                    Toast.makeText(SignUpActivity.this, "Plz Complete All Text Fields", Toast.LENGTH_SHORT).show();
@@ -268,11 +273,28 @@ public class SignUpActivity extends AppCompatActivity {
 //
 //                }
 
+                    }else{
+                        Toast.makeText(getApplicationContext(), "No Network Available",Toast.LENGTH_SHORT).show();
+
+                    }
+
+
+
+
             }
         });
 
     }
-
+    public boolean CheckConnectivity(final Context c) {
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (mConnectivityManager.getActiveNetworkInfo() != null
+                && mConnectivityManager.getActiveNetworkInfo().isAvailable()
+                && mConnectivityManager.getActiveNetworkInfo().isConnected()) {
+            return true;
+        } else {
+            return false; // make it false
+        }
+    }
     public void createAccount() {
 
 //

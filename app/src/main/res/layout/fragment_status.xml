@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#d9d9d9"
-    tools:context="com.example.sarfraz.sarfarz.Fragments.StatusFragment"
+    tools:context="com.example.sarfraz.sarfarz.Fragments.ChangePassword"
     android:orientation="vertical"
     android:padding="10dp"
     android:clickable="true"
@@ -26,7 +26,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Write Your Status"
+        android:hint="Write Your Password"
         android:layout_marginTop="20dp"
         android:background="#fff"
         android:id="@+id/editTextStatusScreen"
@@ -34,7 +34,7 @@
     <Button
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:text="Update Status"
+        android:text="Update Password"
         android:textColor="#fff"
         android:background="#4052b5"
         android:layout_gravity="center"

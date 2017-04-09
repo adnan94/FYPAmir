@@ -16,6 +16,7 @@ import com.example.sarfraz.sarfarz.MyGroupListAdaptor;
 import com.example.sarfraz.sarfarz.R;
 import com.example.sarfraz.sarfarz.Utils;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,8 +35,8 @@ public class GroupsListFragment extends Fragment {
     ArrayList<Group> list;
     MyGroupListAdaptor adaptor;
     DatabaseReference firebase;
-   TextView textView;
-
+    TextView textView;
+    String id;
 
     public GroupsListFragment() {
         // Required empty public constructor
@@ -46,30 +47,66 @@ public class GroupsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v= inflater.inflate(R.layout.fragment_groups_list, container, false);
-        textView=(TextView)v.findViewById(R.id.placeHolderMyGroups);
-        firebase= FirebaseDatabase.getInstance().getReference();
-        listView=(ListView)v.findViewById(R.id.myGroupList);
-        list=new ArrayList<>();
-        adaptor=new MyGroupListAdaptor(list,getActivity());
+        View v = inflater.inflate(R.layout.fragment_groups_list, container, false);
+        textView = (TextView) v.findViewById(R.id.placeHolderMyGroups);
+        firebase = FirebaseDatabase.getInstance().getReference();
+        listView = (ListView) v.findViewById(R.id.myGroupList);
+        list = new ArrayList<>();
+        adaptor = new MyGroupListAdaptor(list, getActivity());
         listView.setAdapter(adaptor);
 
+        if (Utils.type.equals("Employee") || Utils.type.equals("Teacher")) {
+            id = Utils.cnic;
+        } else {
+            id = Utils.uid;
+        }
 
 
-        firebase.child("AppData").child("Groups").child("MyGroup").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+//        firebase.child("AppData").child("Groups").child("MyGroup").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot d : dataSnapshot.getChildren()) {
+//                    textView.setVisibility(View.GONE);
+//                    Group group = d.getValue(Group.class);
+//                    list.add(group);
+//                    adaptor.notifyDataSetChanged();
+//
+//                }
+////                String name = dataSnapshot.child("name").getValue().toString();
+////                String admin = dataSnapshot.child("admin").getValue().toString();
+////                String picurl = dataSnapshot.child("picurl").getValue().toString();
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+        firebase.child("AppData").child("Groups").child("MyGroup").child(id).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot d:dataSnapshot.getChildren())
-                {
-                   textView.setVisibility(View.GONE);
-                    Group group=d.getValue(Group.class);
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                textView.setVisibility(View.GONE);
+                    Group group = dataSnapshot.getValue(Group.class);
                     list.add(group);
                     adaptor.notifyDataSetChanged();
+//
+            }
 
-                }
-//         String name=dataSnapshot.child("name").getValue().toString();
-//                String admin=dataSnapshot.child("admin").getValue().toString();
-//                String picurl=dataSnapshot.child("picurl").getValue().toString();
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -78,10 +115,11 @@ public class GroupsListFragment extends Fragment {
             }
         });
 
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent,View view, int position, long id) {
-                Utils.groupName=list.get(position).getName();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Utils.groupName = list.get(position).getName();
                 FragmentTransaction mtransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 GroupChat groupChat = new GroupChat();
                 mtransaction.replace(R.id.container, groupChat);
